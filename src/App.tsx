@@ -65,35 +65,41 @@ function App() {
       <tbody>
         <tr>
           <td colSpan={4} style={{ textAlign: "right" }}>
-            {display}
+            {-1e8 <= display && display <= 1e8 ? display : "ERR"}
           </td>
         </tr>
         <tr>
-          <td>{createNumberPad(7)}</td>
-          <td>{createNumberPad(8)}</td>
-          <td>{createNumberPad(9)}</td>
-          <td>{createOperationPad("+", (a, b) => a + b)}</td>
-        </tr>
-        <tr>
-          <td>{createNumberPad(4)}</td>
-          <td>{createNumberPad(5)}</td>
-          <td>{createNumberPad(6)}</td>
-          <td>{createOperationPad("-", (a, b) => a - b)}</td>
-        </tr>
-        <tr>
-          <td>{createNumberPad(1)}</td>
-          <td>{createNumberPad(2)}</td>
-          <td>{createNumberPad(3)}</td>
-          <td>{createOperationPad("=", (_, b) => b)}</td>
-        </tr>
-        <tr>
-          <td colSpan={2}>{createNumberPad(0)}</td>
           <td>
             <Pad symbol="C" onClick={() => setInputs(inputs.slice(0, -1))} />
           </td>
           <td>
             <Pad symbol="AC" onClick={() => setInputs([0])} />
           </td>
+          <td />
+          <td>{createOperationPad("+", (a, b) => a + b)}</td>
+        </tr>
+        <tr>
+          <td>{createNumberPad(7)}</td>
+          <td>{createNumberPad(8)}</td>
+          <td>{createNumberPad(9)}</td>
+          <td>{createOperationPad("-", (a, b) => a - b)}</td>
+        </tr>
+        <tr>
+          <td>{createNumberPad(4)}</td>
+          <td>{createNumberPad(5)}</td>
+          <td>{createNumberPad(6)}</td>
+          <td>{createOperationPad("*", (a, b) => a * b)}</td>
+        </tr>
+        <tr>
+          <td>{createNumberPad(1)}</td>
+          <td>{createNumberPad(2)}</td>
+          <td>{createNumberPad(3)}</td>
+          {/* 簡単のため、小数点以下は切り捨てることにする */}
+          <td>{createOperationPad("/", (a, b) => Math.floor(a / b))}</td>
+        </tr>
+        <tr>
+          <td colSpan={3}>{createNumberPad(0)}</td>
+          <td>{createOperationPad("=", (_, b) => b)}</td>
         </tr>
       </tbody>
     </table>
